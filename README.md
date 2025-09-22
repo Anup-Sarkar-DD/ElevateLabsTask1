@@ -2,15 +2,16 @@
   <h1>Data Cleaning & Preprocessing</h1>
 </div>
 
-- Loaded dataset from Kaggle using API token and opendatasets
-- Checked for missing values:
-  - Column `Age` fixed using group median (median calculated per group of Pclass and Sex)
-  - Column `Embarked` fixed with mode (most frequent value)
-  - Column `Cabin` converted to `Deck` by extracting the first letter, and null values replaced with 'U' for unknown; original `Cabin` column dropped
-- Converted categorical features into numerical using encoding:
-  - Column `Sex` encoded using `map` (male=1, female=0)
-  - Columns `Embarked` and `Deck` encoded using one-hot encoding via `get_dummies`
-- Created visual boxplots for continuous data types (`Age` and `Fare`) to identify outliers
-- Used Interquartile Range (IQR) method to remove outliers from `Age` and `Fare`
-- Normalized continuous numerical features (`Age` and `Fare`) using StandardScaler for scaling
-- Saved the cleaned data into a CSV file for further use
+- Loaded the Titanic dataset directly from Kaggle using an API token and the `opendatasets` package, ensuring seamless and authorized data access.
+- Conducted a thorough missing value analysis to identify columns with incomplete data:
+  - For the `Age` column, missing values were imputed using the median age calculated within groups defined by passenger class (`Pclass`) and gender (`Sex`), improving accuracy by leveraging relevant subgroup information.
+  - The `Embarked` column's missing values were filled with the mode (most frequent embarkation point), preserving the dominant category distribution.
+  - Extracted the deck letter from the `Cabin` column by taking the first character; missing cabins were labeled as 'U' (Unknown). The original `Cabin` column was then dropped to simplify the dataset.
+- Categorical feature transformation was performed to convert text labels into numerical values:
+  - The `Sex` column was encoded using a simple label mapping where 'male' was replaced by 1 and 'female' by 0.
+  - The multi-category columns `Embarked` and `Deck` were transformed using one-hot encoding via `pandas.get_dummies()`, creating binary indicator columns for each category.
+- Visualized the distributions of continuous features (`Age` and `Fare`) with boxplots to detect outliers and understand the spread of data.
+- Applied the Interquartile Range (IQR) method to systematically identify and remove outliers in `Age` and `Fare` that fall significantly outside the typical range, reducing noise and potential bias in modeling.
+- Standardized the numerical continuous features (`Age` and `Fare`) using `StandardScaler` to rescale values to have zero mean and unit variance, which aids many machine learning algorithms in convergence and performance.
+- Finally, exported the cleaned and processed dataset to a CSV file to facilitate subsequent modeling, analysis, and reproducibility.
+
